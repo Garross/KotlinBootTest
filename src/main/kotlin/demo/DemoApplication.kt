@@ -19,34 +19,45 @@ fun main(args: Array<String>) {
     runApplication<DemoApplication>(*args)
 }
 
+//@RestController
+//class MessageResource(val service: MessageService) {
+//    @GetMapping
+//    fun index(): List<Message> = service.findMessages()
+//
+//    @PostMapping
+//    fun post(@RequestBody message: Message){
+//        service.post(message)
+//    }
+//}
 @RestController
-class MessageResource(val service: MessageSerrvice) {
+class MessageResource {
     @GetMapping
-    fun index(): List<Message> = service.findMessages()
-
-    @PostMapping
-    fun post(@RequestBody message: Message){
-        service.post(message)
-    }
+    fun index(): List<Message> = listOf(
+        Message("1", "Hello!"),
+        Message("2", "Bonjour!"),
+        Message("3", "Privet!"),
+    )
 }
+//
+//@Service
+//class MessageService(val db: MessageRepository) {
+//    fun findMessages(): List<Message> = db.findMessages()
+//
+//    fun post (message: Message){
+//        db.save(message)
+//    }
+//}
+//
+//interface MessageRepository: CrudRepository<Message, String> {
+//
+//    @Query("select * from messages")
+//    fun findMessages(): List<Message>
+//}
+//
+//@Table("MESSAGES")
+//data class Message(@Id val id:String, val text:String)
 
-@Service
-class MessageSerrvice(val db: MessageRepository) {
-    fun findMessages(): List<Message> = db.findMessages()
-
-    fun post (message: Message){
-        db.save(message)
-    }
-}
-
-interface MessageRepository: CrudRepository<Message, String> {
-
-    @Query("select * from messages")
-    fun findMessages(): List<Message>
-}
-
-@Table("MESSAGES")
-data class Message(@Id val id:String, val text:String)
+data class Message(val id: String?, val text: String)
 
 
 
